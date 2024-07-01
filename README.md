@@ -1,4 +1,4 @@
-# Verkada-Command-SCIM-APIs
+# Verkada Command SCIM APIs
 
 This Postman collection documents SCIM API endpoints used by Verkada Command. These SCIM APIs can be called directly using Postman for testing purposes.
 
