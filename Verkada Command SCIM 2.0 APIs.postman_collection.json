@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "8cfa1428-f001-4af5-9d38-27e576f7959a",
 		"name": "Verkada Command SCIM 2.0 APIs",
-		"description": "This Postman collection documents SCIM API endpoints used by Verkada Command. These SCIM APIs can be called directly using Postman for testing purposes.\n\nTo get started, find or create your SCIM bearer token from your Verkada Command Org. If you do not have a Command Org, you can create one [here](https://help.verkada.com/en/articles/1143779-get-started-with-verkada-command). After you've created a Command Org, follow these steps to create or refresh a bearer token for your Command Org and to find your SCIM tenant URL.\n\nThe SCIM tenant URL will change based on the region where the Command Org was created. Here are the two regional domains used currently:\n\n- US\n    \n    - Region Domain: api.command.verkada.com\n        \n    - SCIM Tenant URL: [https://api.command.verkada.com/scim](https://api.command.verkada.com/scim.)\n        \n- EU\n    \n    - Region Domain: scim.prod2.verkada.com\n        \n    - SCIM Tenant URL: [<b>h</b>ttps://scim.prod2.verkada.com/scim](https://scim.prod2.verkada.com/scim)\n        \n\nStep-by-Step instructions to setup SCIM user provisioning from a SCIM provisioner to Verkada Command\n\n- Microsoft Entra ID (formerly Azure AD)\n    \n    - [https://help.verkada.com/en/articles/8349052-azure-ad-scim-integration](https://help.verkada.com/en/articles/8349052-azure-ad-scim-integration)\n        \n- Okta\n    \n\nCopyright (c) 2024 Aron Aperauch\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
+		"description": "This Postman collection documents SCIM API endpoints used by Verkada Command. These SCIM APIs can be called directly using Postman for testing purposes.\n\nTo get started, find or create your SCIM bearer token from your Verkada Command Org. If you do not have a Command Org, you can create one [here](https://help.verkada.com/en/articles/1143779-get-started-with-verkada-command). After you've created a Command Org, follow these steps to create or refresh a bearer token for your Command Org and to find your SCIM tenant URL.\n\nThe SCIM tenant URL will change based on the region where the Command Org was created. Here are the two regional domains used currently:\n\n- US\n    - Region Domain: api.command.verkada.com\n    - SCIM Tenant URL: [https://api.command.verkada.com/scim](https://api.command.verkada.com/scim.)\n- EU\n    - Region Domain: scim.prod2.verkada.com\n    - SCIM Tenant URL: [<b>h</b>ttps://scim.prod2.verkada.com/scim](https://scim.prod2.verkada.com/scim)\n\nStep-by-Step instructions to setup SCIM user provisioning from a SCIM provisioner to Verkada Command\n\n- Microsoft Entra ID (formerly Azure AD)\n    - [https://help.verkada.com/en/articles/8349052-azure-ad-scim-integration](https://help.verkada.com/en/articles/8349052-azure-ad-scim-integration)\n- Okta\n    - [https://help.verkada.com/en/articles/8371396-okta-scim-integration](https://help.verkada.com/en/articles/8371396-okta-scim-integration)\n    \n\nCopyright (c) 2024 Aron Aperauch\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "31342517"
 	},
@@ -48,7 +48,7 @@
 					},
 					"response": [
 						{
-							"name": "Get Users",
+							"name": "200 OK - Get Users",
 							"originalRequest": {
 								"method": "GET",
 								"header": [
@@ -152,7 +152,7 @@
 							"body": "{\n    \"id\": \"09af\",\n    \"message\": \"Missing auth token\",\n    \"data\": {\n        \"source\": \"va\",\n        \"isSession\": false,\n        \"hasAuthCookie\": false,\n        \"hasAuthLive\": false,\n        \"hasAuthHeader\": true\n    }\n}"
 						},
 						{
-							"name": "403 Forbidden - Insufficient permissions",
+							"name": "403 Forbidden - Insufficient permissions 403 Forbidden - Insufficient permissions or wrong OAuth token",
 							"originalRequest": {
 								"method": "GET",
 								"header": [
@@ -202,6 +202,58 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"id\": \"6f18\",\n    \"message\": \"Insufficient permissions\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "403 Forbidden - Invalid or missing OAuth token",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/scim+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/scim+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{region-domain}}/scim/Users",
+									"protocol": "https",
+									"host": [
+										"{{region-domain}}"
+									],
+									"path": [
+										"scim",
+										"Users"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Wed, 03 Jul 2024 20:01:57 GMT"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "62"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"4495\",\n    \"message\": \"Invalid OAuth token\",\n    \"data\": null\n}"
 						}
 					]
 				},
@@ -250,7 +302,7 @@
 					},
 					"response": [
 						{
-							"name": "Get User",
+							"name": "200 OK - Get User",
 							"originalRequest": {
 								"method": "GET",
 								"header": [
@@ -282,7 +334,7 @@
 									"variable": [
 										{
 											"key": "user_id",
-											"value": "9704a25b-b64d-4b4f-8adb-4e596ac91773"
+											"value": "{{scim-user-id}}"
 										}
 									]
 								}
@@ -344,7 +396,7 @@
 									"variable": [
 										{
 											"key": "user_id",
-											"value": "9704a25b-b64d-4b4f-8adb-4e596ac91773"
+											"value": "{{scim-user-id}}"
 										}
 									]
 								}
@@ -376,6 +428,167 @@
 					]
 				},
 				{
+					"name": "Filter for Users",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"user-agent": true,
+							"connection": true,
+							"accept": true,
+							"accept-encoding": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/scim+json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/scim+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{region-domain}}/scim/Users?filter=Username eq \"scimUser1@company.com\"",
+							"protocol": "https",
+							"host": [
+								"{{region-domain}}"
+							],
+							"path": [
+								"scim",
+								"Users"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "Username eq \"scimUser1@company.com\""
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK - Users found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/scim+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/scim+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{region-domain}}/scim/Users?filter=Username eq \"scimUser2@company.com\"",
+									"protocol": "https",
+									"host": [
+										"{{region-domain}}"
+									],
+									"path": [
+										"scim",
+										"Users"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "Username eq \"scimUser2@company.com\""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Mon, 01 Jul 2024 17:02:27 GMT"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "819"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Resources\": [\n        {\n            \"active\": true,\n            \"costCenter\": \"ABC123\",\n            \"department\": \"Security Operations\",\n            \"emails\": [\n                {\n                    \"type\": \"work\",\n                    \"value\": \"scimUser1@company.com\"\n                }\n            ],\n            \"employeeNumber\": \"ABC1234567890\",\n            \"id\": \"9704a25b-b64d-4b4f-8adb-4e596ac91773\",\n            \"meta\": {\n                \"location\": \"http://api.command.verkada.com/scim/Users/9704a25b-b64d-4b4f-8adb-4e596ac91773\",\n                \"resourceType\": \"User\"\n            },\n            \"name\": {\n                \"familyName\": \"User1\",\n                \"givenName\": \"Scim\",\n                \"middleName\": \"\"\n            },\n            \"organization\": \"Verkada\",\n            \"phoneNumbers\": [\n                {\n                    \"primary\": true,\n                    \"type\": \"work\",\n                    \"value\": \"555-555-1234\"\n                },\n                {\n                    \"primary\": false,\n                    \"type\": \"mobile\",\n                    \"value\": \"555-555-5678\"\n                }\n            ],\n            \"schemas\": [\n                \"urn:ietf:params:scim:schemas:core:2.0:User\"\n            ],\n            \"title\": \"Security Manager\",\n            \"userName\": \"scimUser1@company.com\",\n            \"userType\": null\n        }\n    ],\n    \"itemsPerPage\": 100,\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n    ],\n    \"startIndex\": 0,\n    \"totalResults\": 1\n}"
+						},
+						{
+							"name": "200 OK - No users found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/scim+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/scim+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{region-domain}}/scim/Users?filter=Username eq \"jsmith@company.com\"",
+									"protocol": "https",
+									"host": [
+										"{{region-domain}}"
+									],
+									"path": [
+										"scim",
+										"Users"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "Username eq \"jsmith@company.com\""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Mon, 01 Jul 2024 17:04:16 GMT"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "133"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Resources\": [],\n    \"itemsPerPage\": 100,\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n    ],\n    \"startIndex\": 0,\n    \"totalResults\": 0\n}"
+						}
+					]
+				},
+				{
 					"name": "Update User",
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {
@@ -401,7 +614,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"active\": true,\n    \"costCenter\": \"ABC123\",\n    \"department\": \"Security Operations\",\n    \"emails\": [\n        {\n            \"type\": \"work\",\n            \"value\": \"scimUser1@company.com\"\n        }\n    ],\n    \"employeeNumber\": \"ABC1234567890\",\n    \"meta\": {\n        \"location\": \"http://api.command.verkada.com/scim/Users/9704a25b-b64d-4b4f-8adb-4e596ac91773\",\n        \"resourceType\": \"User\"\n    },\n    \"name\": {\n        \"familyName\": \"User1\",\n        \"givenName\": \"Scim\",\n        \"middleName\": \"\"\n    },\n    \"organization\": \"Verkada\",\n    \"phoneNumbers\": [\n        {\n            \"primary\": true,\n            \"type\": \"work\",\n            \"value\": \"555-555-1234\"\n        },\n        {\n            \"primary\": false,\n            \"type\": \"mobile\",\n            \"value\": \"555-555-5678\"\n        }\n    ],\n    \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:User\"\n    ],\n    \"title\": \"Security Manager\",\n    \"userName\": \"scimUser1@company.com\"\n}",
+							"raw": "{\n    \"active\": true,\n    \"costCenter\": \"Cost Center\",\n    \"department\": \"Department Name\",\n    \"emails\": [\n        {\n            \"type\": \"work\",\n            \"value\": \"scimUser1@company.com\"\n        }\n    ],\n    \"employeeNumber\": \"EmployeeNumber\",\n    \"id\": \"9704a25b-b64d-4b4f-8adb-4e596ac91773\",\n    \"meta\": {\n        \"location\": \"http://api.command.verkada.com/scim/Users/9704a25b-b64d-4b4f-8adb-4e596ac91773\",\n        \"resourceType\": \"User\"\n    },\n    \"name\": {\n        \"familyName\": \"User1\",\n        \"givenName\": \"Scim\",\n        \"middleName\": \"\"\n    },\n    \"organization\": \"Organization Name\",\n    \"phoneNumbers\": [\n        {\n            \"primary\": true,\n            \"type\": \"work\",\n            \"value\": \"555-555-1234\"\n        }\n    ],\n    \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:User\"\n    ],\n    \"title\": \"Job Title\",\n    \"userName\": \"scimUser1@company.com\",\n    \"userType\": \"User\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -429,7 +642,7 @@
 					},
 					"response": [
 						{
-							"name": "Update User",
+							"name": "201 Created - User updated",
 							"originalRequest": {
 								"method": "PUT",
 								"header": [
@@ -446,7 +659,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"active\": true,\n    \"costCenter\": \"ABC123\",\n    \"department\": \"Security Operations\",\n    \"emails\": [\n        {\n            \"type\": \"work\",\n            \"value\": \"scimUser1@company.com\"\n        }\n    ],\n    \"employeeNumber\": \"ABC1234567890\",\n    \"meta\": {\n        \"location\": \"http://api.command.verkada.com/scim/Users/9704a25b-b64d-4b4f-8adb-4e596ac91773\",\n        \"resourceType\": \"User\"\n    },\n    \"name\": {\n        \"familyName\": \"User1\",\n        \"givenName\": \"Scim\",\n        \"middleName\": \"\"\n    },\n    \"organization\": \"Verkada\",\n    \"phoneNumbers\": [\n        {\n            \"primary\": true,\n            \"type\": \"work\",\n            \"value\": \"555-555-1234\"\n        },\n        {\n            \"primary\": false,\n            \"type\": \"mobile\",\n            \"value\": \"555-555-5678\"\n        }\n    ],\n    \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:User\"\n    ],\n    \"title\": \"Security Manager\",\n    \"userName\": \"scimUser1@company.com\"\n}",
+									"raw": "{\n    \"active\": true,\n    \"costCenter\": \"Cost Center\",\n    \"department\": \"Department Name\",\n    \"emails\": [\n        {\n            \"type\": \"work\",\n            \"value\": \"scimUser1@company.com\"\n        }\n    ],\n    \"employeeNumber\": \"EmployeeNumber\",\n    \"id\": \"9704a25b-b64d-4b4f-8adb-4e596ac91773\",\n    \"meta\": {\n        \"location\": \"http://api.command.verkada.com/scim/Users/9704a25b-b64d-4b4f-8adb-4e596ac91773\",\n        \"resourceType\": \"User\"\n    },\n    \"name\": {\n        \"familyName\": \"User1\",\n        \"givenName\": \"Scim\",\n        \"middleName\": \"\"\n    },\n    \"organization\": \"Organization Name\",\n    \"phoneNumbers\": [\n        {\n            \"primary\": true,\n            \"type\": \"work\",\n            \"value\": \"555-555-1234\"\n        }\n    ],\n    \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:User\"\n    ],\n    \"title\": \"Job Title\",\n    \"userName\": \"scimUser1@company.com\",\n    \"userType\": \"User\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -478,7 +691,7 @@
 							"header": [
 								{
 									"key": "date",
-									"value": "Mon, 01 Jul 2024 17:17:31 GMT"
+									"value": "Wed, 03 Jul 2024 20:11:35 GMT"
 								},
 								{
 									"key": "content-type",
@@ -486,7 +699,7 @@
 								},
 								{
 									"key": "content-length",
-									"value": "687"
+									"value": "694"
 								},
 								{
 									"key": "vary",
@@ -494,7 +707,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"active\": true,\n    \"costCenter\": \"ABC123\",\n    \"department\": \"Security Operations\",\n    \"emails\": [\n        {\n            \"type\": \"work\",\n            \"value\": \"scimUser1@company.com\"\n        }\n    ],\n    \"employeeNumber\": \"ABC1234567890\",\n    \"id\": \"9704a25b-b64d-4b4f-8adb-4e596ac91773\",\n    \"meta\": {\n        \"location\": \"http://api.command.verkada.com/scim/Users/9704a25b-b64d-4b4f-8adb-4e596ac91773\",\n        \"resourceType\": \"User\"\n    },\n    \"name\": {\n        \"familyName\": \"User1\",\n        \"givenName\": \"Scim\",\n        \"middleName\": \"\"\n    },\n    \"organization\": \"Verkada\",\n    \"phoneNumbers\": [\n        {\n            \"primary\": true,\n            \"type\": \"work\",\n            \"value\": \"555-555-1234\"\n        },\n        {\n            \"primary\": false,\n            \"type\": \"mobile\",\n            \"value\": \"555-555-5678\"\n        }\n    ],\n    \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:User\"\n    ],\n    \"title\": \"Security Manager\",\n    \"userName\": \"scimUser1@company.com\",\n    \"userType\": null\n}"
+							"body": "{\n    \"active\": true,\n    \"costCenter\": \"Cost Center\",\n    \"department\": \"Department Name\",\n    \"emails\": [\n        {\n            \"type\": \"work\",\n            \"value\": \"scimUser1@company.com\"\n        }\n    ],\n    \"employeeNumber\": \"EmployeeNumber\",\n    \"id\": \"9704a25b-b64d-4b4f-8adb-4e596ac91773\",\n    \"meta\": {\n        \"location\": \"http://api.command.verkada.com/scim/Users/9704a25b-b64d-4b4f-8adb-4e596ac91773\",\n        \"resourceType\": \"User\"\n    },\n    \"name\": {\n        \"familyName\": \"User1\",\n        \"givenName\": \"Scim\",\n        \"middleName\": \"\"\n    },\n    \"organization\": \"Organization Name\",\n    \"phoneNumbers\": [\n        {\n            \"primary\": true,\n            \"type\": \"work\",\n            \"value\": \"555-555-1234\"\n        },\n        {\n            \"primary\": false,\n            \"type\": \"mobile\",\n            \"value\": \"555-555-5678\"\n        }\n    ],\n    \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:User\"\n    ],\n    \"title\": \"Job Title\",\n    \"userName\": \"scimUser1@company.com\",\n    \"userType\": \"User\"\n}"
 						},
 						{
 							"name": "404 Not Found - User not found",
@@ -595,7 +808,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n     \"schemas\":[\"urn:ietf:params:scim:schemas:core:2.0:User\"],\n     \"userName\":\"scimUser1@company.com\",\n     \"externalId\":\"scimUser1@company.com\",\n     \"name\":{\n       \"familyName\":\"User1\",\n       \"givenName\":\"Scim\"\n     },\n    \"costCenter\": \"ABC123\",\n    \"department\": \"Security Operations\",\n    \"emails\": [\n        {\n            \"type\": \"work\",\n            \"value\": \"scimUser1@company.com\"\n        }\n    ],\n    \"employeeNumber\": \"ABC1234567890\",\n    \"organization\": \"Verkada\",\n    \"phoneNumbers\": [\n        {\n            \"primary\": true,\n            \"type\": \"work\",\n            \"value\": \"555-555-1234\"\n        },\n        {\n            \"primary\": false,\n            \"type\": \"mobile\",\n            \"value\": \"555-555-5678\"\n        }\n    ],\n    \"title\": \"Security Manager\"\n}",
+							"raw": "{\n    \"active\": true,\n    \"costCenter\": \"Cost Center\",\n    \"department\": \"Department Name\",\n    \"emails\": [\n        {\n            \"type\": \"work\",\n            \"value\": \"scimUser1@company.com\"\n        }\n    ],\n    \"employeeNumber\": \"EmployeeNumber\",\n    \"name\": {\n        \"familyName\": \"User1\",\n        \"givenName\": \"Scim\",\n        \"middleName\": \"\"\n    },\n    \"organization\": \"Organization Name\",\n    \"phoneNumbers\": [\n        {\n            \"primary\": true,\n            \"type\": \"work\",\n            \"value\": \"555-555-1234\"\n        }\n    ],\n    \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:User\"\n    ],\n    \"title\": \"Job Title\",\n    \"userName\": \"scimUser1@company.com\",\n    \"userType\": \"User\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -616,7 +829,7 @@
 					},
 					"response": [
 						{
-							"name": "Create User",
+							"name": "201 Created - User created",
 							"originalRequest": {
 								"method": "POST",
 								"header": [
@@ -833,15 +1046,6 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n     \"schemas\":[\"urn:ietf:params:scim:schemas:core:2.0:User\"],\n     \"userName\":\"scimUser4@company.com\",\n     \"externalId\":\"scimUser4@company.com\",\n     \"name\":{\n       \"familyName\":\"User4\",\n       \"givenName\":\"Scim\"\n     }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "https://{{region-domain}}/scim/Users/:user_id",
 							"protocol": "https",
@@ -863,7 +1067,7 @@
 					},
 					"response": [
 						{
-							"name": "Delete User",
+							"name": "200 OK - User deleted",
 							"originalRequest": {
 								"method": "DELETE",
 								"header": [
@@ -878,23 +1082,11 @@
 										"type": "text"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n     \"schemas\":[\"urn:ietf:params:scim:schemas:core:2.0:User\"],\n     \"userName\":\"scimUser4@company.com\",\n     \"externalId\":\"scimUser4@company.com\",\n     \"name\":{\n       \"familyName\":\"User4\",\n       \"givenName\":\"Scim\"\n     }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
-									"raw": "https://api.command.verkada.com/scim/Users/:user_id",
+									"raw": "https://{{region-domain}}/scim/Users/:user_id",
 									"protocol": "https",
 									"host": [
-										"api",
-										"command",
-										"verkada",
-										"com"
+										"{{region-domain}}"
 									],
 									"path": [
 										"scim",
@@ -904,7 +1096,7 @@
 									"variable": [
 										{
 											"key": "user_id",
-											"value": "9704a25b-b64d-4b4f-8adb-4e596ac91773"
+											"value": "{{scim-user-id}}"
 										}
 									]
 								}
@@ -915,7 +1107,7 @@
 							"header": [
 								{
 									"key": "date",
-									"value": "Mon, 01 Jul 2024 16:18:55 GMT"
+									"value": "Wed, 03 Jul 2024 16:38:46 GMT"
 								},
 								{
 									"key": "content-type",
@@ -934,7 +1126,7 @@
 							"body": "{\n    \"active\": true,\n    \"costCenter\": \"ABC123\",\n    \"department\": \"Security Operations\",\n    \"emails\": [\n        {\n            \"type\": \"work\",\n            \"value\": \"scimUser1@company.com\"\n        }\n    ],\n    \"employeeNumber\": \"ABC1234567890\",\n    \"id\": \"9704a25b-b64d-4b4f-8adb-4e596ac91773\",\n    \"meta\": {\n        \"location\": \"http://api.command.verkada.com/scim/Users/9704a25b-b64d-4b4f-8adb-4e596ac91773\",\n        \"resourceType\": \"User\"\n    },\n    \"name\": {\n        \"familyName\": \"User1\",\n        \"givenName\": \"Scim\",\n        \"middleName\": \"\"\n    },\n    \"organization\": \"Verkada\",\n    \"phoneNumbers\": [\n        {\n            \"primary\": true,\n            \"type\": \"work\",\n            \"value\": \"555-555-1234\"\n        },\n        {\n            \"primary\": false,\n            \"type\": \"mobile\",\n            \"value\": \"555-555-5678\"\n        }\n    ],\n    \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:User\"\n    ],\n    \"title\": \"Security Manager\",\n    \"userName\": \"scimUser1@company.com\",\n    \"userType\": null\n}"
 						},
 						{
-							"name": "User not found",
+							"name": "400 Bad Request - User not found",
 							"originalRequest": {
 								"method": "DELETE",
 								"header": [
@@ -949,15 +1141,6 @@
 										"type": "text"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n     \"schemas\":[\"urn:ietf:params:scim:schemas:core:2.0:User\"],\n     \"userName\":\"scimUser4@company.com\",\n     \"externalId\":\"scimUser4@company.com\",\n     \"name\":{\n       \"familyName\":\"User4\",\n       \"givenName\":\"Scim\"\n     }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
 									"raw": "https://{{region-domain}}/scim/Users/:user_id",
 									"protocol": "https",
@@ -1000,195 +1183,6 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"detail\": \"User not found\",\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:Error\"\n    ],\n    \"status\": \"400\"\n}"
-						}
-					]
-				},
-				{
-					"name": "Filter for Users",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true,
-						"disabledSystemHeaders": {
-							"user-agent": true,
-							"connection": true,
-							"accept": true,
-							"accept-encoding": true
-						}
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/scim+json",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/scim+json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "   {\n     \"schemas\": [\"urn:ietf:params:scim:api:messages:2.0:SearchRequest\"],\n     \"attributes\": [\"displayName\", \"userName\"],\n     \"filter\":\n       \"displayName sw \\\"smith\\\"\",\n     \"startIndex\": 1,\n     \"count\": 10\n   }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "https://{{region-domain}}/scim/Users?filter=Username eq \"scimUser1@company.com\"",
-							"protocol": "https",
-							"host": [
-								"{{region-domain}}"
-							],
-							"path": [
-								"scim",
-								"Users"
-							],
-							"query": [
-								{
-									"key": "filter",
-									"value": "Username eq \"scimUser1@company.com\""
-								}
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Filter for Users",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/scim+json",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/scim+json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "   {\n     \"schemas\": [\"urn:ietf:params:scim:api:messages:2.0:SearchRequest\"],\n     \"attributes\": [\"displayName\", \"userName\"],\n     \"filter\":\n       \"displayName sw \\\"smith\\\"\",\n     \"startIndex\": 1,\n     \"count\": 10\n   }",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "https://{{region-domain}}/scim/Users?filter=Username eq \"scimUser2@company.com\"",
-									"protocol": "https",
-									"host": [
-										"{{region-domain}}"
-									],
-									"path": [
-										"scim",
-										"Users"
-									],
-									"query": [
-										{
-											"key": "filter",
-											"value": "Username eq \"scimUser2@company.com\""
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "date",
-									"value": "Mon, 01 Jul 2024 17:02:27 GMT"
-								},
-								{
-									"key": "content-type",
-									"value": "application/json"
-								},
-								{
-									"key": "content-length",
-									"value": "819"
-								},
-								{
-									"key": "vary",
-									"value": "Accept-Encoding"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"Resources\": [\n        {\n            \"active\": true,\n            \"costCenter\": \"ABC123\",\n            \"department\": \"Security Operations\",\n            \"emails\": [\n                {\n                    \"type\": \"work\",\n                    \"value\": \"scimUser1@company.com\"\n                }\n            ],\n            \"employeeNumber\": \"ABC1234567890\",\n            \"id\": \"9704a25b-b64d-4b4f-8adb-4e596ac91773\",\n            \"meta\": {\n                \"location\": \"http://api.command.verkada.com/scim/Users/9704a25b-b64d-4b4f-8adb-4e596ac91773\",\n                \"resourceType\": \"User\"\n            },\n            \"name\": {\n                \"familyName\": \"User1\",\n                \"givenName\": \"Scim\",\n                \"middleName\": \"\"\n            },\n            \"organization\": \"Verkada\",\n            \"phoneNumbers\": [\n                {\n                    \"primary\": true,\n                    \"type\": \"work\",\n                    \"value\": \"555-555-1234\"\n                },\n                {\n                    \"primary\": false,\n                    \"type\": \"mobile\",\n                    \"value\": \"555-555-5678\"\n                }\n            ],\n            \"schemas\": [\n                \"urn:ietf:params:scim:schemas:core:2.0:User\"\n            ],\n            \"title\": \"Security Manager\",\n            \"userName\": \"scimUser1@company.com\",\n            \"userType\": null\n        }\n    ],\n    \"itemsPerPage\": 100,\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n    ],\n    \"startIndex\": 0,\n    \"totalResults\": 1\n}"
-						},
-						{
-							"name": "Empty list - No results found",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/scim+json",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/scim+json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "   {\n     \"schemas\": [\"urn:ietf:params:scim:api:messages:2.0:SearchRequest\"],\n     \"attributes\": [\"displayName\", \"userName\"],\n     \"filter\":\n       \"displayName sw \\\"smith\\\"\",\n     \"startIndex\": 1,\n     \"count\": 10\n   }",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "https://{{region-domain}}/scim/Users?filter=Username eq \"jsmith@company.com\"",
-									"protocol": "https",
-									"host": [
-										"{{region-domain}}"
-									],
-									"path": [
-										"scim",
-										"Users"
-									],
-									"query": [
-										{
-											"key": "filter",
-											"value": "Username eq \"jsmith@company.com\""
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "date",
-									"value": "Mon, 01 Jul 2024 17:04:16 GMT"
-								},
-								{
-									"key": "content-type",
-									"value": "application/json"
-								},
-								{
-									"key": "content-length",
-									"value": "133"
-								},
-								{
-									"key": "vary",
-									"value": "Accept-Encoding"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"Resources\": [],\n    \"itemsPerPage\": 100,\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n    ],\n    \"startIndex\": 0,\n    \"totalResults\": 0\n}"
 						}
 					]
 				}
@@ -1235,7 +1229,7 @@
 					},
 					"response": [
 						{
-							"name": "Get Groups",
+							"name": "200 OK - Get Groups",
 							"originalRequest": {
 								"method": "GET",
 								"header": [
@@ -1284,113 +1278,10 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"Resources\": [\n        {\n            \"displayName\": \"SCIM Group 1\",\n            \"id\": \"0b59be4b-388e-45ce-8311-e1dc4ddd9de9\",\n            \"members\": [],\n            \"meta\": {\n                \"location\": \"http://api.command.verkada.com/scim/Groups/0b59be4b-388e-45ce-8311-e1dc4ddd9de9\",\n                \"resourceType\": \"Group\"\n            },\n            \"schemas\": [\n                \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n            ]\n        }\n    ],\n    \"itemsPerPage\": 100,\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n    ],\n    \"startIndex\": 0,\n    \"totalResults\": 1\n}"
-						}
-					]
-				},
-				{
-					"name": "Filter for Groups",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"user-agent": true,
-							"connection": true,
-							"accept": true,
-							"accept-encoding": true
-						}
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/scim+json",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/scim+json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "https://{{region-domain}}/scim/Groups?filter=displayName eq \"SCIM Group 1\"",
-							"protocol": "https",
-							"host": [
-								"{{region-domain}}"
-							],
-							"path": [
-								"scim",
-								"Groups"
-							],
-							"query": [
-								{
-									"key": "filter",
-									"value": "displayName eq \"SCIM Group 1\""
-								}
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Filter for Groups",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/scim+json",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/scim+json",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "https://{{region-domain}}/scim/Groups?filter=displayName eq \"SCIM Group 1\"",
-									"protocol": "https",
-									"host": [
-										"{{region-domain}}"
-									],
-									"path": [
-										"scim",
-										"Groups"
-									],
-									"query": [
-										{
-											"key": "filter",
-											"value": "displayName eq \"SCIM Group 1\""
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "date",
-									"value": "Mon, 01 Jul 2024 18:08:03 GMT"
-								},
-								{
-									"key": "content-type",
-									"value": "application/json"
-								},
-								{
-									"key": "content-length",
-									"value": "504"
-								},
-								{
-									"key": "vary",
-									"value": "Accept-Encoding"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"Resources\": [\n        {\n            \"displayName\": \"SCIM Group 1\",\n            \"id\": \"67f13292-8b8b-47b1-9a2c-55c82aa2709b\",\n            \"members\": [\n                {\n                    \"display\": \"Scim User1\",\n                    \"location\": null,\n                    \"type\": \"User\",\n                    \"value\": \"64a79b79-a54a-469f-b078-4ac7a190066f\"\n                }\n            ],\n            \"meta\": {\n                \"location\": \"http://api.command.verkada.com/scim/Groups/67f13292-8b8b-47b1-9a2c-55c82aa2709b\",\n                \"resourceType\": \"Group\"\n            },\n            \"schemas\": [\n                \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n            ]\n        }\n    ],\n    \"itemsPerPage\": 100,\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n    ],\n    \"startIndex\": 0,\n    \"totalResults\": 1\n}"
+							"body": "{\n    \"Resources\": [\n        {\n            \"displayName\": \"SCIM Group 3\",\n            \"id\": \"95739aeb-955d-47b5-ae31-473335cbfef2\",\n            \"members\": [],\n            \"meta\": {\n                \"location\": \"http://api.command.verkada.com/scim/Groups/95739aeb-955d-47b5-ae31-473335cbfef2\",\n                \"resourceType\": \"Group\"\n            },\n            \"schemas\": [\n                \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n            ]\n        },\n        {\n            \"displayName\": \"SCIM Group 1\",\n            \"id\": \"fb80a851-8206-40a0-852a-6740569823aa\",\n            \"members\": [],\n            \"meta\": {\n                \"location\": \"http://api.command.verkada.com/scim/Groups/fb80a851-8206-40a0-852a-6740569823aa\",\n                \"resourceType\": \"Group\"\n            },\n            \"schemas\": [\n                \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n            ]\n        },\n        {\n            \"displayName\": \"SCIM Group 2\",\n            \"id\": \"5097edb2-97b6-4bca-b383-b403779f5344\",\n            \"members\": [],\n            \"meta\": {\n                \"location\": \"http://api.command.verkada.com/scim/Groups/5097edb2-97b6-4bca-b383-b403779f5344\",\n                \"resourceType\": \"Group\"\n            },\n            \"schemas\": [\n                \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n            ]\n        }\n    ],\n    \"itemsPerPage\": 100,\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n    ],\n    \"startIndex\": 0,\n    \"totalResults\": 3\n}"
 						},
 						{
-							"name": "Empty list - No results found",
+							"name": "403 Forbidden - Invalid or missing OAuth token",
 							"originalRequest": {
 								"method": "GET",
 								"header": [
@@ -1406,7 +1297,7 @@
 									}
 								],
 								"url": {
-									"raw": "https://{{region-domain}}/scim/Groups?filter=displayName eq \"Non-Existing Group\"",
+									"raw": "https://{{region-domain}}/scim/Groups",
 									"protocol": "https",
 									"host": [
 										"{{region-domain}}"
@@ -1414,22 +1305,16 @@
 									"path": [
 										"scim",
 										"Groups"
-									],
-									"query": [
-										{
-											"key": "filter",
-											"value": "displayName eq \"Non-Existing Group\""
-										}
 									]
 								}
 							},
-							"status": "OK",
-							"code": 200,
+							"status": "Forbidden",
+							"code": 403,
 							"_postman_previewlanguage": "json",
 							"header": [
 								{
 									"key": "date",
-									"value": "Mon, 01 Jul 2024 17:07:16 GMT"
+									"value": "Wed, 03 Jul 2024 20:01:08 GMT"
 								},
 								{
 									"key": "content-type",
@@ -1437,7 +1322,7 @@
 								},
 								{
 									"key": "content-length",
-									"value": "133"
+									"value": "62"
 								},
 								{
 									"key": "vary",
@@ -1445,7 +1330,59 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"Resources\": [],\n    \"itemsPerPage\": 100,\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n    ],\n    \"startIndex\": 0,\n    \"totalResults\": 0\n}"
+							"body": "{\n    \"id\": \"4495\",\n    \"message\": \"Invalid OAuth token\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "403 Forbidden - Insufficient permissions or wrong OAuth token",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/scim+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/scim+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{region-domain}}/scim/Groups",
+									"protocol": "https",
+									"host": [
+										"{{region-domain}}"
+									],
+									"path": [
+										"scim",
+										"Groups"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Wed, 03 Jul 2024 20:03:10 GMT"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "67"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"6f18\",\n    \"message\": \"Insufficient permissions\",\n    \"data\": null\n}"
 						}
 					]
 				},
@@ -1460,16 +1397,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{scim-bearer-token}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -1504,7 +1431,7 @@
 					},
 					"response": [
 						{
-							"name": "Get Group",
+							"name": "200 OK - Get Group",
 							"originalRequest": {
 								"method": "GET",
 								"header": [
@@ -1592,7 +1519,7 @@
 									"variable": [
 										{
 											"key": "group_id",
-											"value": "0b59be4b-388e-45ce-8311-e1dc4ddd9de0"
+											"value": "{{scim-group-id}}"
 										}
 									]
 								}
@@ -1624,7 +1551,7 @@
 					]
 				},
 				{
-					"name": "Delete Group",
+					"name": "Filter for Groups",
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {
 							"user-agent": true,
@@ -1634,7 +1561,7 @@
 						}
 					},
 					"request": {
-						"method": "DELETE",
+						"method": "GET",
 						"header": [
 							{
 								"key": "Accept",
@@ -1648,29 +1575,28 @@
 							}
 						],
 						"url": {
-							"raw": "https://{{region-domain}}/scim/Groups/:group_id",
+							"raw": "https://{{region-domain}}/scim/Groups?filter=displayName eq \"SCIM Group 1\"",
 							"protocol": "https",
 							"host": [
 								"{{region-domain}}"
 							],
 							"path": [
 								"scim",
-								"Groups",
-								":group_id"
+								"Groups"
 							],
-							"variable": [
+							"query": [
 								{
-									"key": "group_id",
-									"value": "{{scim-group-id}}"
+									"key": "filter",
+									"value": "displayName eq \"SCIM Group 1\""
 								}
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "Delete Group",
+							"name": "200 OK - Found groupsoups",
 							"originalRequest": {
-								"method": "DELETE",
+								"method": "GET",
 								"header": [
 									{
 										"key": "Accept",
@@ -1684,20 +1610,19 @@
 									}
 								],
 								"url": {
-									"raw": "https://{{region-domain}}/scim/Groups/:group_id",
+									"raw": "https://{{region-domain}}/scim/Groups?filter=displayName eq \"SCIM Group 1\"",
 									"protocol": "https",
 									"host": [
 										"{{region-domain}}"
 									],
 									"path": [
 										"scim",
-										"Groups",
-										":group_id"
+										"Groups"
 									],
-									"variable": [
+									"query": [
 										{
-											"key": "group_id",
-											"value": "{{scim-group-id}}"
+											"key": "filter",
+											"value": "displayName eq \"SCIM Group 1\""
 										}
 									]
 								}
@@ -1708,7 +1633,7 @@
 							"header": [
 								{
 									"key": "date",
-									"value": "Mon, 01 Jul 2024 17:28:42 GMT"
+									"value": "Mon, 01 Jul 2024 18:08:03 GMT"
 								},
 								{
 									"key": "content-type",
@@ -1716,7 +1641,7 @@
 								},
 								{
 									"key": "content-length",
-									"value": "3"
+									"value": "504"
 								},
 								{
 									"key": "vary",
@@ -1724,12 +1649,12 @@
 								}
 							],
 							"cookie": [],
-							"body": "{}"
+							"body": "{\n    \"Resources\": [\n        {\n            \"displayName\": \"SCIM Group 1\",\n            \"id\": \"67f13292-8b8b-47b1-9a2c-55c82aa2709b\",\n            \"members\": [\n                {\n                    \"display\": \"Scim User1\",\n                    \"location\": null,\n                    \"type\": \"User\",\n                    \"value\": \"64a79b79-a54a-469f-b078-4ac7a190066f\"\n                }\n            ],\n            \"meta\": {\n                \"location\": \"http://api.command.verkada.com/scim/Groups/67f13292-8b8b-47b1-9a2c-55c82aa2709b\",\n                \"resourceType\": \"Group\"\n            },\n            \"schemas\": [\n                \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n            ]\n        }\n    ],\n    \"itemsPerPage\": 100,\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n    ],\n    \"startIndex\": 0,\n    \"totalResults\": 1\n}"
 						},
 						{
-							"name": "404 Not Found - Group not found",
+							"name": "200 OK - No groups found",
 							"originalRequest": {
-								"method": "DELETE",
+								"method": "GET",
 								"header": [
 									{
 										"key": "Accept",
@@ -1743,31 +1668,30 @@
 									}
 								],
 								"url": {
-									"raw": "https://{{region-domain}}/scim/Groups/:group_id",
+									"raw": "https://{{region-domain}}/scim/Groups?filter=displayName eq \"Non-Existing Group\"",
 									"protocol": "https",
 									"host": [
 										"{{region-domain}}"
 									],
 									"path": [
 										"scim",
-										"Groups",
-										":group_id"
+										"Groups"
 									],
-									"variable": [
+									"query": [
 										{
-											"key": "group_id",
-											"value": "{{scim-group-id}}"
+											"key": "filter",
+											"value": "displayName eq \"Non-Existing Group\""
 										}
 									]
 								}
 							},
-							"status": "Not Found",
-							"code": 404,
+							"status": "OK",
+							"code": 200,
 							"_postman_previewlanguage": "json",
 							"header": [
 								{
 									"key": "date",
-									"value": "Mon, 01 Jul 2024 17:29:11 GMT"
+									"value": "Mon, 01 Jul 2024 17:07:16 GMT"
 								},
 								{
 									"key": "content-type",
@@ -1775,7 +1699,7 @@
 								},
 								{
 									"key": "content-length",
-									"value": "140"
+									"value": "133"
 								},
 								{
 									"key": "vary",
@@ -1783,7 +1707,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"detail\": \"Group not found: 0b59be4b-388e-45ce-8311-e1dc4ddd9de9\",\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:Error\"\n    ],\n    \"status\": \"404\"\n}"
+							"body": "{\n    \"Resources\": [],\n    \"itemsPerPage\": 100,\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n    ],\n    \"startIndex\": 0,\n    \"totalResults\": 0\n}"
 						}
 					]
 				},
@@ -1834,7 +1758,7 @@
 					},
 					"response": [
 						{
-							"name": "Create Group",
+							"name": "201 Created - Group created",
 							"originalRequest": {
 								"method": "POST",
 								"header": [
@@ -1965,7 +1889,7 @@
 					]
 				},
 				{
-					"name": "Add Members to Group",
+					"name": "Add Users to Group",
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {
 							"user-agent": true,
@@ -1990,7 +1914,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \"schemas\":\n       [\"urn:ietf:params:scim:api:messages:2.0:PatchOp\"],\n     \"Operations\":[\n       {\n        \"op\":\"add\",\n        \"path\":\"members\",\n        \"value\":[\n         {\n           \"userName\": \"scimUser1@company.com\",\n           \"$ref\":\n   \"https://command.verkada.com/admin/users/64a79b79-a54a-469f-b078-4ac7a190066f\",\n           \"value\": \"64a79b79-a54a-469f-b078-4ac7a190066f\"\n         }\n        ]\n       }\n     ]\n   }",
+							"raw": "{\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n    ],\n    \"Operations\": [\n        {\n            \"op\": \"add\",\n            \"path\": \"members\",\n            \"value\": [\n                {\n                    \"value\": \"64a79b79-a54a-469f-b078-4ac7a190066f\"\n                }\n            ]\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2018,7 +1942,7 @@
 					},
 					"response": [
 						{
-							"name": "Add Members to Group",
+							"name": "200 OK - User added to group",
 							"originalRequest": {
 								"method": "PATCH",
 								"header": [
@@ -2035,7 +1959,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \"schemas\":\n       [\"urn:ietf:params:scim:api:messages:2.0:PatchOp\"],\n     \"Operations\":[\n       {\n        \"op\":\"add\",\n        \"path\":\"members\",\n        \"value\":[\n         {\n           \"userName\": \"scimUser1@company.com\",\n           \"$ref\":\n   \"https://api.command.verkada.com/scim/Users/64a79b79-a54a-469f-b078-4ac7a190066f\",\n           \"value\": \"64a79b79-a54a-469f-b078-4ac7a190066f\"\n         }\n        ]\n       }\n     ]\n   }",
+									"raw": "{\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n    ],\n    \"Operations\": [\n        {\n            \"op\": \"add\",\n            \"path\": \"members\",\n            \"value\": [\n                {\n                    \"value\": \"64a79b79-a54a-469f-b078-4ac7a190066f\"\n                }\n            ]\n        }\n    ]\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2067,7 +1991,7 @@
 							"header": [
 								{
 									"key": "date",
-									"value": "Mon, 01 Jul 2024 17:22:49 GMT"
+									"value": "Wed, 03 Jul 2024 19:58:54 GMT"
 								},
 								{
 									"key": "content-type",
@@ -2083,65 +2007,10 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"displayName\": \"SCIM Group 1\",\n    \"id\": \"0b59be4b-388e-45ce-8311-e1dc4ddd9de9\",\n    \"members\": [\n        {\n            \"display\": \"Scim User1\",\n            \"location\": null,\n            \"type\": \"User\",\n            \"value\": \"64a79b79-a54a-469f-b078-4ac7a190066f\"\n        }\n    ],\n    \"meta\": {\n        \"location\": \"http://api.command.verkada.com/scim/Groups/0b59be4b-388e-45ce-8311-e1dc4ddd9de9\",\n        \"resourceType\": \"Group\"\n    },\n    \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n    ]\n}"
-						}
-					]
-				},
-				{
-					"name": "Remove Members from Group",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"user-agent": true,
-							"connection": true,
-							"accept": true,
-							"accept-encoding": true
-						}
-					},
-					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/scim+json",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/scim+json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{ \"schemas\":\n       [\"urn:ietf:params:scim:api:messages:2.0:PatchOp\"],\n     \"Operations\":[\n       {\n        \"op\":\"remove\",\n        \"path\":\"members\",\n        \"value\":[\n         {\n           \"userName\": \"scimUser1@company.com\",\n           \"$ref\":\n   \"https://command.verkada.com/admin/users/64a79b79-a54a-469f-b078-4ac7a190066f\",\n           \"value\": \"64a79b79-a54a-469f-b078-4ac7a190066f\"\n         }\n        ]\n       }\n     ]\n   }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"body": "{\n    \"displayName\": \"SCIM Group 1\",\n    \"id\": \"67f13292-8b8b-47b1-9a2c-55c82aa2709b\",\n    \"members\": [\n        {\n            \"display\": \"Scim User1\",\n            \"location\": null,\n            \"type\": \"User\",\n            \"value\": \"64a79b79-a54a-469f-b078-4ac7a190066f\"\n        }\n    ],\n    \"meta\": {\n        \"location\": \"http://api.command.verkada.com/scim/Groups/67f13292-8b8b-47b1-9a2c-55c82aa2709b\",\n        \"resourceType\": \"Group\"\n    },\n    \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n    ]\n}"
 						},
-						"url": {
-							"raw": "https://{{region-domain}}/scim/Groups/:group_id",
-							"protocol": "https",
-							"host": [
-								"{{region-domain}}"
-							],
-							"path": [
-								"scim",
-								"Groups",
-								":group_id"
-							],
-							"variable": [
-								{
-									"key": "group_id",
-									"value": "{{scim-group-id}}"
-								}
-							]
-						}
-					},
-					"response": [
 						{
-							"name": "Remove Members from Group",
+							"name": "200 OK - Users added to group",
 							"originalRequest": {
 								"method": "PATCH",
 								"header": [
@@ -2158,7 +2027,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \"schemas\":\n       [\"urn:ietf:params:scim:api:messages:2.0:PatchOp\"],\n     \"Operations\":[\n       {\n        \"op\":\"remove\",\n        \"path\":\"members\",\n        \"value\":[\n         {\n           \"userName\": \"scimUser1@company.com\",\n           \"$ref\":\n   \"https://command.verkada.com/admin/users/64a79b79-a54a-469f-b078-4ac7a190066f\",\n           \"value\": \"64a79b79-a54a-469f-b078-4ac7a190066f\"\n         }\n        ]\n       }\n     ]\n   }",
+									"raw": "{\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n    ],\n    \"Operations\": [\n        {\n            \"op\": \"add\",\n            \"path\": \"members\",\n            \"value\": [\n                {\n                    \"value\": \"64a79b79-a54a-469f-b078-4ac7a190066f\"\n                },\n                {\n                    \"value\": \"9704a25b-b64d-4b4f-8adb-4e596ac91773\"\n                },\n                {\n                    \"value\": \"10884d55-e6aa-4aed-81ed-da8c0bed954c\"\n                }\n            ]\n        }\n    ]\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2190,7 +2059,198 @@
 							"header": [
 								{
 									"key": "date",
-									"value": "Mon, 01 Jul 2024 17:27:09 GMT"
+									"value": "Wed, 03 Jul 2024 19:56:21 GMT"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "576"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"displayName\": \"SCIM Group 1\",\n    \"id\": \"67f13292-8b8b-47b1-9a2c-55c82aa2709b\",\n    \"members\": [\n        {\n            \"display\": \"Scim User2\",\n            \"location\": null,\n            \"type\": \"User\",\n            \"value\": \"10884d55-e6aa-4aed-81ed-da8c0bed954c\"\n        },\n        {\n            \"display\": \"Scim User1\",\n            \"location\": null,\n            \"type\": \"User\",\n            \"value\": \"64a79b79-a54a-469f-b078-4ac7a190066f\"\n        },\n        {\n            \"display\": \"Scim User3\",\n            \"location\": null,\n            \"type\": \"User\",\n            \"value\": \"9704a25b-b64d-4b4f-8adb-4e596ac91773\"\n        }\n    ],\n    \"meta\": {\n        \"location\": \"http://api.command.verkada.com/scim/Groups/67f13292-8b8b-47b1-9a2c-55c82aa2709b\",\n        \"resourceType\": \"Group\"\n    },\n    \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n    ]\n}"
+						},
+						{
+							"name": "404 Not Found - Group does not exist",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/scim+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/scim+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n    ],\n    \"Operations\": [\n        {\n            \"op\": \"add\",\n            \"path\": \"members\",\n            \"value\": [\n                {\n                    \"value\": \"64a79b79-a54a-469f-b078-4ac7a190066f\"\n                }\n            ]\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{region-domain}}/scim/Groups/:group_id",
+									"protocol": "https",
+									"host": [
+										"{{region-domain}}"
+									],
+									"path": [
+										"scim",
+										"Groups",
+										":group_id"
+									],
+									"variable": [
+										{
+											"key": "group_id",
+											"value": "{{scim-group-id}}"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Wed, 03 Jul 2024 20:19:58 GMT"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "107"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"detail\": \"Group does not exist\",\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:Error\"\n    ],\n    \"status\": \"404\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Remove Users from Group",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"user-agent": true,
+							"connection": true,
+							"accept": true,
+							"accept-encoding": true
+						}
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/scim+json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/scim+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n    ],\n    \"Operations\": [\n        {\n            \"op\": \"remove\",\n            \"path\": \"members\",\n            \"value\": [\n                {\n                    \"value\": \"64a79b79-a54a-469f-b078-4ac7a190066f\"\n                }\n            ]\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{region-domain}}/scim/Groups/:group_id",
+							"protocol": "https",
+							"host": [
+								"{{region-domain}}"
+							],
+							"path": [
+								"scim",
+								"Groups",
+								":group_id"
+							],
+							"variable": [
+								{
+									"key": "group_id",
+									"value": "{{scim-group-id}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK - User removed from group",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/scim+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/scim+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n    ],\n    \"Operations\": [\n        {\n            \"op\": \"remove\",\n            \"path\": \"members\",\n            \"value\": [\n                {\n                    \"value\": \"64a79b79-a54a-469f-b078-4ac7a190066f\"\n                }\n            ]\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{region-domain}}/scim/Groups/:group_id",
+									"protocol": "https",
+									"host": [
+										"{{region-domain}}"
+									],
+									"path": [
+										"scim",
+										"Groups",
+										":group_id"
+									],
+									"variable": [
+										{
+											"key": "group_id",
+											"value": "{{scim-group-id}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Wed, 03 Jul 2024 19:59:31 GMT"
 								},
 								{
 									"key": "content-type",
@@ -2206,7 +2266,307 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"displayName\": \"SCIM Group 1\",\n    \"id\": \"0b59be4b-388e-45ce-8311-e1dc4ddd9de9\",\n    \"members\": [],\n    \"meta\": {\n        \"location\": \"http://api.command.verkada.com/scim/Groups/0b59be4b-388e-45ce-8311-e1dc4ddd9de9\",\n        \"resourceType\": \"Group\"\n    },\n    \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n    ]\n}"
+							"body": "{\n    \"displayName\": \"SCIM Group 1\",\n    \"id\": \"67f13292-8b8b-47b1-9a2c-55c82aa2709b\",\n    \"members\": [],\n    \"meta\": {\n        \"location\": \"http://api.command.verkada.com/scim/Groups/67f13292-8b8b-47b1-9a2c-55c82aa2709b\",\n        \"resourceType\": \"Group\"\n    },\n    \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n    ]\n}"
+						},
+						{
+							"name": "200 OK - Users removed from group",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/scim+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/scim+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n    ],\n    \"Operations\": [\n        {\n            \"op\": \"remove\",\n            \"path\": \"members\",\n            \"value\": [\n                {\n                    \"value\": \"64a79b79-a54a-469f-b078-4ac7a190066f\"\n                },\n                {\n                    \"value\": \"9704a25b-b64d-4b4f-8adb-4e596ac91773\"\n                },\n                {\n                    \"value\": \"10884d55-e6aa-4aed-81ed-da8c0bed954c\"\n                }\n            ]\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{region-domain}}/scim/Groups/:group_id",
+									"protocol": "https",
+									"host": [
+										"{{region-domain}}"
+									],
+									"path": [
+										"scim",
+										"Groups",
+										":group_id"
+									],
+									"variable": [
+										{
+											"key": "group_id",
+											"value": "{{scim-group-id}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Wed, 03 Jul 2024 19:58:09 GMT"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "271"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"displayName\": \"SCIM Group 1\",\n    \"id\": \"67f13292-8b8b-47b1-9a2c-55c82aa2709b\",\n    \"members\": [],\n    \"meta\": {\n        \"location\": \"http://api.command.verkada.com/scim/Groups/67f13292-8b8b-47b1-9a2c-55c82aa2709b\",\n        \"resourceType\": \"Group\"\n    },\n    \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n    ]\n}"
+						},
+						{
+							"name": "404 Not Found - Group does not exist",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/scim+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/scim+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n    ],\n    \"Operations\": [\n        {\n            \"op\": \"remove\",\n            \"path\": \"members\",\n            \"value\": [\n                {\n                    \"value\": \"64a79b79-a54a-469f-b078-4ac7a190066f\"\n                }\n            ]\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{region-domain}}/scim/Groups/:group_id",
+									"protocol": "https",
+									"host": [
+										"{{region-domain}}"
+									],
+									"path": [
+										"scim",
+										"Groups",
+										":group_id"
+									],
+									"variable": [
+										{
+											"key": "group_id",
+											"value": "{{scim-group-id}}"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Wed, 03 Jul 2024 20:20:25 GMT"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "107"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"detail\": \"Group does not exist\",\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:Error\"\n    ],\n    \"status\": \"404\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Group",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"user-agent": true,
+							"connection": true,
+							"accept": true,
+							"accept-encoding": true
+						}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/scim+json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/scim+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{region-domain}}/scim/Groups/:group_id",
+							"protocol": "https",
+							"host": [
+								"{{region-domain}}"
+							],
+							"path": [
+								"scim",
+								"Groups",
+								":group_id"
+							],
+							"variable": [
+								{
+									"key": "group_id",
+									"value": "{{scim-group-id}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK - Group deleted",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/scim+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/scim+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{region-domain}}/scim/Groups/:group_id",
+									"protocol": "https",
+									"host": [
+										"{{region-domain}}"
+									],
+									"path": [
+										"scim",
+										"Groups",
+										":group_id"
+									],
+									"variable": [
+										{
+											"key": "group_id",
+											"value": "{{scim-group-id}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Mon, 01 Jul 2024 17:28:42 GMT"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "3"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								}
+							],
+							"cookie": [],
+							"body": "{}"
+						},
+						{
+							"name": "404 Not Found - Group not found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/scim+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/scim+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{region-domain}}/scim/Groups/:group_id",
+									"protocol": "https",
+									"host": [
+										"{{region-domain}}"
+									],
+									"path": [
+										"scim",
+										"Groups",
+										":group_id"
+									],
+									"variable": [
+										{
+											"key": "group_id",
+											"value": "{{scim-group-id}}"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Mon, 01 Jul 2024 17:29:11 GMT"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "140"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"detail\": \"Group not found: 0b59be4b-388e-45ce-8311-e1dc4ddd9de9\",\n    \"schemas\": [\n        \"urn:ietf:params:scim:api:messages:2.0:Error\"\n    ],\n    \"status\": \"404\"\n}"
 						}
 					]
 				}
@@ -2215,84 +2575,6 @@
 		{
 			"name": "SCIM 2.0 Endpoints",
 			"item": [
-				{
-					"name": "Get Core User Schema",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"user-agent": true,
-							"connection": true,
-							"accept": true,
-							"accept-encoding": true
-						}
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/scim+json",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/scim+json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "https://{{region-domain}}/scim/Schemas/urn:ietf:params:scim:schemas:core:2.0:User",
-							"protocol": "https",
-							"host": [
-								"{{region-domain}}"
-							],
-							"path": [
-								"scim",
-								"Schemas",
-								"urn:ietf:params:scim:schemas:core:2.0:User"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Service Provider Config Schema",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"user-agent": true,
-							"connection": true,
-							"accept": true,
-							"accept-encoding": true
-						}
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/scim+json",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/scim+json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "https://{{region-domain}}/scim/Schemas/urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig",
-							"protocol": "https",
-							"host": [
-								"{{region-domain}}"
-							],
-							"path": [
-								"scim",
-								"Schemas",
-								"urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "Get Service Provider Config",
 					"protocolProfileBehavior": {
@@ -2331,7 +2613,7 @@
 					},
 					"response": [
 						{
-							"name": "Get Service Provider Config",
+							"name": "200 OK - Get Service Provider Config",
 							"originalRequest": {
 								"method": "GET",
 								"header": [
